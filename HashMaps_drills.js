@@ -77,18 +77,22 @@ function palindrome(string){
 
 //6
 function anagrams(arr){
-  const hash = new HashMap();
   let result = [];
-  for(let i = 0; i < arr.length; i++){
-    for(let j = 0; j < arr[i].length; j++){
-      try{
-        hash.get(arr[i][j]);
-      }
-      catch(e){
-        hash.set(arr[i][j], '');
-      }
+  const subArr = new Map();
+
+  arr.forEach(word => {
+    const alphabetized = word.split('').sort().join('');
+    let curr = subArr.get(alphabetized);
+    if(curr === undefined){
+      subArr.set(alphabetized, [word]);
     }
-    
+    else{
+      const array = [...curr, word];
+      subArr.set(alphabetized, array);
+    }
+  });
+  for(let value of subArr.values()){
+    result.push(value);
   }
   return result;
 }
