@@ -1,4 +1,3 @@
-'use strict';
 const LinkedList = require('./LinkedList');
 
 class HashMapChain {
@@ -11,7 +10,7 @@ class HashMapChain {
 
   get(key) {
     const node = this._findNode(key);
-    if(node === null){
+    if (node === null) {
       throw new Error('Key error');
     }
     return node.value;
@@ -22,27 +21,23 @@ class HashMapChain {
     if (loadRatio > HashMapChain.MAX_LOAD_RATIO) {
       this._resize(this._capacity * HashMapChain.SIZE_RATIO);
     }
+
     const index = this._findSlot(key);
 
-    if(this._hashTable[index] === undefined){
+    if (this._hashTable[index] === undefined) {
       this._hashTable[index] = new LinkedList();
     }
 
-    if(this._findNode(key) === null){
+    if (this._findNode(key) === null) {
       this.length++;
       this._hashTable[index].insertLast({
         key,
         value,
-        DELETED: false
+        deleted: false
       });
-    }
-    else{
+    } else {
       let node = this._hashTable[index].find(key);
-      node.value = {
-        key,
-        value,
-        deleted: false //may not need bc pointers
-      };
+      node.value = { key, value, deleted: false };
     }
   }
 
@@ -51,13 +46,12 @@ class HashMapChain {
     this._hashTable[index].delete(key);
   }
 
-  _findNode(key){
-    const idx = this._findSlot(key);
-    if(this._hashTable[idx] !== undefined){
-      const res = this._hashTable[idx].find(key);
-      return res;
-    }
-    else{
+  _findNode(key) {
+    const index = this._findSlot(key);
+    if (this._hashTable[index] !== undefined) {
+      const response = this._hashTable[index].find(key);
+      return response;
+    } else {
       return null;
     }
   }
@@ -76,7 +70,11 @@ class HashMapChain {
 
     for (const slot of oldSlots) {
       if (slot !== undefined && !slot.DELETED) {
-        this.set(slot.key, slot.value);
+        let currNode = slot.head;
+        while (currNode !== null) {
+          this.set(currNode.value.key, currNode.value.value);
+          currNode = currNode.next;
+        }
       }
     }
   }
@@ -94,4 +92,18 @@ class HashMapChain {
 HashMapChain.MAX_LOAD_RATIO = 0.5;
 HashMapChain.SIZE_RATIO = 3;
 
-module.exports = HashMapChain; 
+let lotr = new HashMapChain();
+
+lotr.set('Hobbit', 'Bilbo');
+lotr.set('Hobbit', 'Frodo');
+lotr.set('Wizard', 'Gandolf');
+lotr.set('Human', 'Aragon');
+lotr.set('Elf', 'Legolas');
+lotr.set('Maiar', 'The Necromancer');
+lotr.set('Maiar', 'Sauron');
+lotr.set('RingBearer', 'Gollum');
+lotr.set('LadyOfLight', 'Galadriel');
+lotr.set('HalfElven', 'Arwen');
+lotr.set('Ent', 'Treebeard');
+
+console.log(lotr);

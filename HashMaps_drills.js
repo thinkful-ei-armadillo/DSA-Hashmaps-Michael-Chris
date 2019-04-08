@@ -1,11 +1,9 @@
 'use strict';
 
 const HashMap = require('./HashMap');
-const HashMapChain = require('./HashMapChain');
 
 function main(){
-  // const lotr = new HashMap(); 
-  const lotr = new HashMapChain();
+  const lotr = new HashMap(); 
   lotr.set('Hobbit', 'Bilbo');
   lotr.set('Hobbit', 'Frodo');
   lotr.set('Wizard', 'Gandolf');
@@ -21,7 +19,7 @@ function main(){
 
 }
 
-main(); 
+// main(); 
 
 //1. 
 //a. Yes, but some were overwritten.
