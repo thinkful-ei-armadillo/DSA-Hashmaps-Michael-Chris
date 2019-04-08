@@ -27,15 +27,50 @@ function main(){
 
 //2. 20 and 10 because the same key is being used and overwritten. 
 
+//4
 function duplicates(string) {
   const hash = new HashMap();
-  let str = string.split('').reverse().join(''); 
-  for (let i = 0; i < str.length; i++) {
-    let element = str[i];
-    hash.set(element, element); 
+  let result = '';
+  for(let i = 0; i < string.length; i++) {
+    try{
+      hash.get(string[i]);
+    }
+    catch(e){
+      hash.set(string[i], string[i]);
+      result += string[i];
+    }
   }
-  console.log(hash);
+  console.log(result);
 }
 
-duplicates('google'); 
+// duplicates('google all that you think can think of');
 
+//5
+function palindrome(string){
+  const hash = new HashMap();
+  for(let i = 0; i < string.length; i++){
+    try{
+      let check = hash.get(string[i]);
+      hash.set(string[i], ++check);
+    }
+    catch(e){
+      hash.set(string[i], 1);
+    }
+  }
+
+  let odd = null;
+  for(let i = 0; i < string.length; i++){
+    const charCount = hash.get(string[i]);
+    if(charCount % 2 === 1){
+      if(odd === null || odd === string[i]){
+        odd = string[i];
+      }
+      else{
+        return false;
+      }
+    }    
+  }
+  return true;
+}
+
+// console.log(palindrome('north'));
