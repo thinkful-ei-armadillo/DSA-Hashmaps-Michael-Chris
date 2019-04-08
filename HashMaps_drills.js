@@ -74,3 +74,23 @@ function palindrome(string){
 }
 
 // console.log(palindrome('north'));
+
+//6
+function anagrams(arr){
+  const hash = new HashMap();
+  let result = [];
+  for(let i = 0; i < arr.length; i++){
+    for(let j = 0; j < arr[i].length; j++){
+      try{
+        hash.get(arr[i][j]);
+      }
+      catch(e){
+        hash.set(arr[i][j], '');
+      }
+    }
+    
+  }
+  return result;
+}
+
+console.log(anagrams(['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']));
