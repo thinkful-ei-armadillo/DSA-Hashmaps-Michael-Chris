@@ -1,9 +1,11 @@
 'use strict';
 
-const HashMap = require('./HashMap'); 
+const HashMap = require('./HashMap');
+const HashMapChain = require('./HashMapChain');
 
 function main(){
-  const lotr = new HashMap(); 
+  // const lotr = new HashMap(); 
+  const lotr = new HashMapChain();
   lotr.set('Hobbit', 'Bilbo');
   lotr.set('Hobbit', 'Frodo');
   lotr.set('Wizard', 'Gandolf');
@@ -16,9 +18,10 @@ function main(){
   lotr.set('HalfElven', 'Arwen');
   lotr.set('Ent', 'Treebeard');
   console.log(lotr);
+
 }
 
-// main(); 
+main(); 
 
 //1. 
 //a. Yes, but some were overwritten.
@@ -97,4 +100,4 @@ function anagrams(arr){
   return result;
 }
 
-console.log(anagrams(['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']));
+// console.log(anagrams(['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']));
